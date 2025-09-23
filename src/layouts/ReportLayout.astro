@@ -1,0 +1,45 @@
+---
+// src/layouts/ReportLayout.astro
+import { type CollectionEntry } from 'astro:content';
+
+// 定义 Props 类型，接收单个报告的数据
+interface Props {
+  entry: CollectionEntry<'reports'>;
+}
+const { entry } = Astro.props;
+const { Content } = await entry.render(); // 渲染 Markdown 正文
+
+// 提取 frontmatter 数据，用于注入客户端
+const items = entry.data.data;
+---
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{entry.data.title}</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{entry.data.title}</h1>
+            <p>生成日期: {entry.data.date.toLocaleDateString()}</p>
+            <div id="filters">
+                </div>
+        </header>
+
+        <main id="report-container">
+            </main>
+
+        <article class="markdown-body">
+            <Content />
+        </article>
+    </div>
+
+    <script define:vars={{ items }}>
+        // 关键步骤：将数据作为全局变量注入到客户端
+        window.dailyData = items;
+    </script>
+    <script is:raw src="/assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+---
+// src/pages/reports/[slug].astro
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ReportLayout from '../../layouts/ReportLayout.astro'; // 引入我们之前创建的布局文件
+
+// 1. getStaticPaths 函数告诉 Astro 需要根据数据生成哪些页面
+export async function getStaticPaths() {
+  const reports = await getCollection('reports'); // 获取所有报告
+  
+  return reports.map(entry => ({
+    params: { slug: entry.slug }, // `slug` 会成为 URL 的一部分 (例如, '2025-09-23-test')
+    props: { entry },             // 将完整的报告数据作为 props 传递给页面
+  }));
+}
+
+// 2. 从 props 中获取当前页面所需的数据
+type Props = {
+  entry: CollectionEntry<'reports'>;
+};
+
+const { entry } = Astro.props;
+---
+
+<ReportLayout entry={entry} />
