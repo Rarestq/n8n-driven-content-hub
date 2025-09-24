@@ -2,12 +2,27 @@
 // src/pages/index.astro
 import { getCollection } from 'astro:content';
 
-// 获取所有 reports 文件夹里的报告，并按日期降序排列
-const allReports = await getCollection('reports', ({ data }) => {
-    return data; // 可以添加过滤逻辑
-});
+const allReports = await getCollection('reports');
 const sortedReports = allReports.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const reportsByYearMonth = sortedReports.reduce((acc, report) => {
+  const year = report.data.date.getFullYear();
+  const month = report.data.date.toLocaleString('en-US', { month: 'long' });
+
+  if (!acc[year]) acc[year] = {};
+  if (!acc[year][month]) acc[year][month] = [];
+  
+  acc[year][month].push(report);
+  return acc;
+}, {} as Record<number, Record<string, typeof sortedReports>>);
+
+// --- 修改 1: 按年份倒序排序 (最新的在最上面) ---
+const sortedYears = Object.keys(reportsByYearMonth).sort((a, b) => Number(b) - Number(a));
+
+const currentYear = new Date().getFullYear();
+const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
 ---
+
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -22,16 +37,38 @@ const sortedReports = allReports.sort((a, b) => b.data.date.valueOf() - a.data.d
             <p>由 n8n-driven-content-hub 自动生成</p>
         </header>
         <main>
-            <ul class="report-list">
-                {sortedReports.map(report => (
-                    <li>
-                        <a href={`/reports/${report.slug}/`}>
-                            <span class="date">{report.data.date.toLocaleDateString()}</span>
-                            <span class="title">{report.data.title}</span>
-                        </a>
-                    </li>
-                ))}
-            </ul>
+            {sortedYears.map(year => {
+                const months = reportsByYearMonth[parseInt(year)];
+                return (
+                    <div class="year-group">
+                        <h2 class="year-title">{year}</h2>
+                        <div class="timeline">
+                            {Object.entries(months).map(([month, reports]) => (
+                                <details class="month-group" open={parseInt(year) === currentYear && month === currentMonth}>
+                                    <summary class="month-header">
+                                        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                        {month}
+                                        <span class="report-count">{reports.length} reports</span>
+                                    </summary>
+                                    <ul class="report-list">
+                                        {reports.map(report => (
+                                            <li class="timeline-item">
+                                                {/* --- 修改 2: 添加 target="_blank" 在新标签页打开 --- */}
+                                                <a href={`/reports/${report.slug}/`} target="_blank" rel="noopener noreferrer">
+                                                    <div class="timeline-dot-proxy"></div>
+                                                    <span class="date">{report.data.date.getDate()}</span>
+                                                    <span class="title">{report.data.title}</span>
+                                                </a>
+                                                <div class="timeline-dot"></div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+                )
+            })}
         </main>
     </div>
 </body>
