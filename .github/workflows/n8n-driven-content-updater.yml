@@ -21,9 +21,9 @@ jobs:
         run: |
           # Astro 通常把博客文章放在 src/content/blog/ 或类似目录
           # 你需要根据你的项目结构修改这个路径
-          # ${{ github.event.client_payload.fileName }} 是从 n8n 传过来的文件名
-          # ${{ github.event.client_payload.markdownContent }} 是从 n8n 传过来的 Markdown 内容
-          echo "${{ github.event.client_payload.content }}" > src/content/reports/${{ github.event.client_payload.fileName }}
+          # ${{ github.event.client_payload.filename }} 是从 n8n 传过来的文件名
+          # ${{ github.event.client_payload.content }} 是从 n8n 传过来的 Markdown 内容
+          echo "${{ github.event.client_payload.content }}" > src/content/reports/${{ github.event.client_payload.filename }}
 
       # 3. 提交并推送文件
       - name: Commit and Push
