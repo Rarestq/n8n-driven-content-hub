@@ -2,9 +2,10 @@
 
 An automated content hub powered by n8n and Astro. This project automatically fetches information from various sources (like Hacker News, Reddit, YouTube, etc.) and publishes it as a static website.
 
-<!--  -->
+![Index Page](https://i.ibb.co/sp8C8V4S/1.png)
 
-<!-- Please replace with your project screenshot link -->
+![Detail Page](https://i.ibb.co/3YkN9bV3/2.png)
+
 
 ## How It Works
 This project uses a simple yet powerful automation pipeline to keep the content updated. Here’s a step-by-step breakdown of the workflow:
