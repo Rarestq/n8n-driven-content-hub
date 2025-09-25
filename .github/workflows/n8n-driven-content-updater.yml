@@ -1,0 +1,36 @@
+# .github/workflows/n8n-driven-content-updater.yml
+name: Update content from n8n
+
+# 这个工作流由外部的 repository_dispatch 事件触发
+on:
+  repository_dispatch:
+    types: [add-new-report] # 定义一个事件类型，n8n将使用这个类型来触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 首先，签出（checkout）你的代码仓库
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 创建 Markdown 文件
+      # 我们将从 n8n 发送的 payload 中获取文件名和内容
+      - name: Create Markdown File
+        run: |
+          # Astro 通常把博客文章放在 src/content/blog/ 或类似目录
+          # 你需要根据你的项目结构修改这个路径
+          # ${{ github.event.client_payload.fileName }} 是从 n8n 传过来的文件名
+          # ${{ github.event.client_payload.markdownContent }} 是从 n8n 传过来的 Markdown 内容
+          echo "${{ github.event.client_payload.content }}" > src/content/reports/${{ github.event.client_payload.fileName }}
+
+      # 3. 提交并推送文件
+      - name: Commit and Push
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          # 如果没有改动，git commit会失败，所以我们用 `|| exit 0` 来忽略错误
+          git commit -m "docs: ✨ Add new report from n8n workflow" || exit 0
+          git push
