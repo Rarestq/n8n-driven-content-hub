@@ -26,7 +26,7 @@ graph TD
         D -- "3. Creates & Commits Markdown File" --> E
     end
     
-    subgraph "Hosting Platform (Vercel, Netlify, etc.)"
+    subgraph "Hosting Platform (Cloudflare Pages, etc.)"
         F(Astro Build Process)
         G((Live Static Website))
     end
