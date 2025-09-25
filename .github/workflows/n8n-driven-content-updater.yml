@@ -30,7 +30,7 @@ jobs:
             # 确保目录存在
             mkdir -p src/content/reports
             # 2. 将环境变量的内容通过 echo 写入文件
-            echo "$MARKDOWN_CONTENT" > "src/content/reports/$FILENAME.md"
+            echo "$MARKDOWN_CONTENT" > "src/content/reports/$FILENAME"
 
 
       # 3. 提交并推送文件
