@@ -2,9 +2,9 @@
 
 An automated content hub powered by n8n and Astro. This project automatically fetches information from various sources (like Hacker News, Reddit, YouTube, etc.) and publishes it as a static website.
 
-<a href="https://ibb.co/FkRXRD1v"><img src="https://i.ibb.co/sp8C8V4S/1.png" alt="1" border="0"></a>
+<a><img src="https://i.ibb.co/sp8C8V4S/1.png" alt="1" border="0"></a>
 
-<a href="https://ibb.co/cXxFS9RB"><img src="https://i.ibb.co/3YkN9bV3/2.png" alt="2" border="0"></a>
+<a><img src="https://i.ibb.co/3YkN9bV3/2.png" alt="2" border="0"></a>
 
 
 ## How It Works
