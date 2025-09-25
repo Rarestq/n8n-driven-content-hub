@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write # 授予 job 写入仓库内容的权限
+
     steps:
       # 1. 首先，签出（checkout）你的代码仓库
       - name: Checkout repository
@@ -24,8 +27,9 @@ jobs:
             MARKDOWN_CONTENT: ${{ github.event.client_payload.content }}
             FILENAME: ${{ github.event.client_payload.filename }}
         run: |
+            # 确保目录存在
+            mkdir -p src/content/reports
             # 2. 将环境变量的内容通过 echo 写入文件
-            #  在变量名两边加上双引号 "$VAR" 可以确保保留所有换行符和特殊字符
             echo "$MARKDOWN_CONTENT" > "src/content/reports/$FILENAME.md"
 
 
