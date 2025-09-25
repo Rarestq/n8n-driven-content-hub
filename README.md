@@ -43,35 +43,35 @@ graph TD
     style G fill:#FFD700,stroke:#333,stroke-width:2px
 ```
 
-1. Fetch Data: An n8n Workflow runs on a schedule or is triggered to fetch new content from various APIs and RSS feeds.
+1. **Fetch Data**: An n8n Workflow runs on a schedule or is triggered to fetch new content from various APIs and RSS feeds.
 
-2. Trigger Update: After collecting and formatting the data, n8n sends a webhook to the GitHub repository.
+2. **Trigger Update**: After collecting and formatting the data, n8n sends a webhook to the GitHub repository.
 
-3. GitHub Action: This webhook triggers a GitHub Action which takes the payload (the formatted content) and creates a new Markdown file inside the src/content/reports/ directory.
+3. **GitHub Action**: This webhook triggers a GitHub Action which takes the payload (the formatted content) and creates a new Markdown file inside the src/content/reports/ directory.
 
-4. Build & Deploy: The push of the new commit to the main branch automatically triggers a new build process on Cloudflare (you can also choose other static hosting platform like Vercel or Netlify).
+4. **Build & Deploy**: The push of the new commit to the main branch automatically triggers a new build process on Cloudflare (you can also choose other static hosting platform like Vercel or Netlify).
 
-5. Go Live: Astro builds the site, generating static HTML pages from the Markdown files, and the new content goes live.
+5. **Go Live**: Astro builds the site, generating static HTML pages from the Markdown files, and the new content goes live.
 
 ## Tech Stack
-- n8n: Used for data scraping and workflow automation.
+- **n8n**: Used for data scraping and workflow automation.
 
-- GitHub Actions: Handles CI/CD, receiving webhooks from n8n to automatically update the repository content.
+- **GitHub Actions**: Handles CI/CD, receiving webhooks from n8n to automatically update the repository content.
 
-- Astro: Powers the fast, content-driven static site.
+- **Astro**: Powers the fast, content-driven static site.
 
-- TypeScript: Ensures type safety throughout the project.
+- **TypeScript**: Ensures type safety throughout the project.
 
 ## Features
-- Automated Content Updates: Content is updated automatically via n8n workflows without manual intervention.
+- **Automated Content Updates**: Content is updated automatically via n8n workflows without manual intervention.
 
-- Dynamic Routing: Each report is automatically generated as a separate, unique page using Astro's file-based routing.
+- **Dynamic Routing**: Each report is automatically generated as a separate, unique page using Astro's file-based routing.
 
-- Interactive UI: Supports filtering content by source (Tabs) and keyword searching.
+- **Interactive UI**: Supports filtering content by source (Tabs) and keyword searching.
 
-- Responsive Design: Optimized for both desktop and mobile viewing.
+- **Responsive Design**: Optimized for both desktop and mobile viewing.
 
-- Dark Mode: Automatically adapts to your system's color scheme.
+- **Dark Mode**: Automatically adapts to your system's color scheme.
 
 ## Project Structure
 A brief overview of the key directories and files:
@@ -94,19 +94,19 @@ A brief overview of the key directories and files:
 - npm
 
 ### Installation
-1. Clone the repository:
+1. **Clone the repository**:
 
     ```bash
     git clone [https://github.com/Rarestq/n8n-driven-content-hub.git](https://github.com/Rarestq/n8n-driven-content-hub.git)
     ```
 
-2. Navigate to the project directory:
+2. **Navigate to the project directory**:
 
     ```bash
     cd n8n-driven-content-hub
     ```
 
-3. Install dependencies:
+3. **Install dependencies**:
 
     ```bash
     npm install
@@ -133,22 +133,22 @@ The static files will be generated in the `dist/` directory.
 ## Deployment
 This project can be deployed to any static site hosting service, such as:
 
-- Vercel
+- **Vercel**
 
-- Netlify
+- **Netlify**
 
-- Cloudflare Pages
+- **Cloudflare Pages**
 
-- GitHub Pages
+- **GitHub Pages**
 
 ## Sponsor
 
 <a href='https://ko-fi.com/rarestzhou' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi5.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ## Contact
-Email: 📮 rarestzhou@gmail.com
+- **Email**: 📮 rarestzhou@gmail.com
 
-Twitter: [@rarestzhou](https://x.com/rarestzhou)
+- **Twitter**: [@rarestzhou](https://x.com/rarestzhou)
 
 ## License
 This project is licensed under the GNU General Public License v3.0. See the LICENSE file for more details.
